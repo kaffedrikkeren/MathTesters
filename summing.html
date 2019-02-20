@@ -77,7 +77,7 @@
         function displayNewTask() {
 
             number1 = getRandom(0, 20);
-            number2 = getRandom(0, 10);
+            number2 = getRandom(0, 20);
 
             $("#number1").text(number1);
             $("#number2").text(number2);
@@ -100,8 +100,10 @@
         function displayCat(result) {            
 
             if (result) {
+                hide("shokedCat");
                 show("happyCat");                
             } else {
+                hide("happyCat");
                 show("shokedCat");
             }
 
@@ -130,8 +132,8 @@
             top: 50%;
             position: absolute;
             transform: translate(-50%, -50%);
-            width: 500px;
-            height: 500px;
+            width: 700px;
+            height: 700px;
             background: white;
             padding: 1em;
             border-radius: 0.25em;
@@ -174,7 +176,7 @@
 
         #happyCat, #shokedCat {
             display: none;
-            width: 500px;
+            width: 100%;
             text-align: center;
         }
     </style>
@@ -194,7 +196,7 @@
                 = <input id="answer" onkeypress="return parseAnswerPress(event);" maxlength="3">
             </div>
             <p>
-                <img src="img/happy_cat.jpg" id="happyCat">
+                <img src="img/happy_cat.png" id="happyCat">
                 <img src="img/shoked_cat.jpg" id="shokedCat">
             </p>
         </div>
