@@ -1,21 +1,122 @@
+<!DOCTYPE html>
 <html>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
     <script language="javascript">
+
+        var number1 = 0, number2 = 0;
+        var rightAnswers = 0, wrongAnswers = 0, rightAnswersPercent = 0; 
+        var thinkingTime = 0, thinkingTimeAverage = 0;
+        var thinkingStart = null, thinkingEnd = null;
+        var thinkingTimes = [];
+
+        function isNumberPressed(event) {
+            if (event.keyCode >= 48 && event.keyCode <= 57) {
+                return true;
+            }
+            else {
+                console.log(event.keyCode);
+                return false;
+            }
+        }
+
+        function parseAnswerPress(event) {
+            if (event.keyCode == 13) {
+                checkAnswer();
+            } else {
+                return isNumberPressed(event);
+            }
+        }
+
         function getRandom(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
-        }        
-        function displayNewTask() {
-            $("#number1").text(getRandom(0, 20));
-            $("#number2").text(getRandom(0, 10));
-            $("#task").css('display', 'block');
-            console.log("OK");
+        } 
+        
+        function show(id) {
+            $("#" + id).css('display', 'block');
         }
+
+        function hide(id) {
+            $("#" + id).css('display', 'none');
+        }
+
+        function getThinkingTimeAverage() {
+            sum = 0;
+            count = thinkingTimes.length;
+            for (r = 0; r < count; r++) {
+                sum += thinkingTimes[r];
+            }
+            return sum / count;
+        }
+
+        function recountStats(result) {
+            if (result) {
+                rightAnswers++;
+            }
+            else {
+                wrongAnswers++;
+            }
+
+            rightAnswersPercent = rightAnswers / (wrongAnswers + rightAnswers) * 100;
+
+            thinkingEnd = new Date();
+            thinkingTime = (thinkingEnd - thinkingStart) / 1000;
+            thinkingTimes.push(thinkingTime);
+            thinkingTimeAverage = getThinkingTimeAverage();
+
+        }
+
+        function updateStats() {
+            $("#rightAnswers").text(rightAnswers);
+            $("#wrongAnswers").text(wrongAnswers);
+            $("#rightAnswersPercent").text(rightAnswersPercent.toFixed(0));
+            $("#thinkingTime").text(thinkingTimeAverage.toFixed(2));
+        }
+
+        function displayNewTask() {
+
+            number1 = getRandom(0, 20);
+            number2 = getRandom(0, 10);
+
+            $("#number1").text(number1);
+            $("#number2").text(number2);
+            $("#answer").val("");
+
+            show("task");
+
+            thinkingStart = new Date();
+
+        }
+
+        function checkAnswer() {
+            var checkResult = parseInt($("#answer").val()) == number1 + number2;
+            recountStats(checkResult);
+            updateStats();
+            displayCat(checkResult);            
+            displayNewTask();
+        }
+
+        function displayCat(result) {            
+
+            if (result) {
+                show("happyCat");                
+            } else {
+                show("shokedCat");
+            }
+
+            setTimeout(function() {
+                hide("happyCat");
+                hide("shokedCat");
+            }, 1000);
+
+        }
+        
         $(function() {
             displayNewTask();
             $("#answer").focus();
         });
+
     </script>
 
     <style>
@@ -24,39 +125,78 @@
             font-family: Georgia, 'Times New Roman', Times, serif;
         }
 
-        .main-container {
+        #main-container {
             left: 50%;
             top: 50%;
             position: absolute;
             transform: translate(-50%, -50%);
             width: 500px;
             height: 500px;
-            /*background: tomato;*/
+            background: white;
             padding: 1em;
             border-radius: 0.25em;
+        }
+
+        #stats {
+            left: 1em;
+            top: 1em;
+            min-width: 4em;
+            position: absolute;
+            background: #f0f0f0;
+            padding: 1em;
+            border-radius: 0.25em;
+        }
+
+        #stats table {
+            border: none;            
+        }
+
+        #stats table td {
+            padding: 0.25em;
         }
 
         #task {
             /*background: wheat;*/
             text-align: center;
-            font-size: 3rem;
+            font-size: 4rem;
             display: none;
         }
 
         #answer {
             border: none;
-            background: #efefef;
-            font-size: 3rem;
+            background: #f9f9f9;
+            font-size: 4rem;
             display: inline-block;
             width: 3em;
+            padding: 0.25em;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        #happyCat, #shokedCat {
+            display: none;
+            width: 500px;
+            text-align: center;
         }
     </style>
 
     <body>
-        <div class="main-container">
+        <div id="stats">
+            <table>
+                <tr><td>&#x1f44d;</td><td><span id="rightAnswers"></span></td></tr>
+                <tr><td>&#128078;</td><td><span id="wrongAnswers"></span></td></tr>
+                <tr><td>%</td><td><span id="rightAnswersPercent"></span></td></tr>
+                <tr><td>&#9202;</td><td><span id="thinkingTime"></span></td></tr>
+            </table>
+        </div>
+        <div id="main-container">
             <div id="task">
-                <span id="number1"></span> + <span id="number2"></span> = <input type="number" id="answer">
+                <span id="number1"></span> + <span id="number2"></span> 
+                = <input id="answer" onkeypress="return parseAnswerPress(event);" maxlength="3">
             </div>
+            <p>
+                <img src="img/happy_cat.jpg" id="happyCat">
+                <img src="img/shoked_cat.jpg" id="shokedCat">
+            </p>
         </div>
     </body>
 </html>
