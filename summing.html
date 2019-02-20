@@ -1,0 +1,62 @@
+<html>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+    <script language="javascript">
+        function getRandom(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }        
+        function displayNewTask() {
+            $("#number1").text(getRandom(0, 20));
+            $("#number2").text(getRandom(0, 10));
+            $("#task").css('display', 'block');
+            console.log("OK");
+        }
+        $(function() {
+            displayNewTask();
+            $("#answer").focus();
+        });
+    </script>
+
+    <style>
+        body {
+            font-size: 14pt;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .main-container {
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            /*background: tomato;*/
+            padding: 1em;
+            border-radius: 0.25em;
+        }
+
+        #task {
+            /*background: wheat;*/
+            text-align: center;
+            font-size: 3rem;
+            display: none;
+        }
+
+        #answer {
+            border: none;
+            background: #efefef;
+            font-size: 3rem;
+            display: inline-block;
+            width: 3em;
+        }
+    </style>
+
+    <body>
+        <div class="main-container">
+            <div id="task">
+                <span id="number1"></span> + <span id="number2"></span> = <input type="number" id="answer">
+            </div>
+        </div>
+    </body>
+</html>
