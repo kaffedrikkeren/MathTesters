@@ -3,13 +3,19 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 #main-container {
     left: 50%;
-    top: 50%;
+    top: 1em;
     position: absolute;
-    transform: translate(-50%, -50%);
-    width: 700px;
-    height: 700px;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 500px;
     background: white;
     padding: 1em;
     border-radius: 0.25em;
@@ -18,7 +24,7 @@ body {
 #stats {
     left: 1em;
     top: 1em;
-    min-width: 4em;
+    min-width: 5em;
     position: absolute;
     background: #f0f0f0;
     padding: 1em;
@@ -26,7 +32,7 @@ body {
 }
 
 #stats table {
-    border: none;            
+    border: none; 
 }
 
 #stats table td {

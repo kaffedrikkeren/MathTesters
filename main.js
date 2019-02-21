@@ -119,7 +119,7 @@ function displayCat(result) {
 
 }
 
-$(function() {
+$(document).ready(function() {
     displayNewTask();
     $("#answer").focus();
 });
