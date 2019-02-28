@@ -81,8 +81,8 @@ function updateStats() {
 
 function displayNewTask() {
 
-    number1 = getRandom(0, 20);
-    number2 = getRandom(0, 20);
+    number1 = getRandom(0, max1);
+    number2 = getRandom(0, max2);
 
     $("#number1").text(number1);
     $("#number2").text(number2);
@@ -95,7 +95,7 @@ function displayNewTask() {
 }
 
 function checkAnswer() {
-    var checkResult = parseInt($("#answer").val()) == number1 + number2;
+    var checkResult = isAnswerCorrect(number1, number2, parseInt($("#answer").val()));
     recountStats(checkResult);
     updateStats();
     displayCat(checkResult);            
