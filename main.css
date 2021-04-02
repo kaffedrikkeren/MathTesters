@@ -3,10 +3,10 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 #main-container {
@@ -32,7 +32,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #stats table {
-    border: none; 
+    border: none;
 }
 
 #stats table td {
@@ -56,7 +56,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#happyCat, #shokedCat {
+#happyCat, #shockedCat {
     display: none;
     width: 100%;
     text-align: center;
