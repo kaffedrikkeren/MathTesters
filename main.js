@@ -43,15 +43,21 @@ function getRandom(min, max) {
 }
 
 function show(id) {
+    const imgNum = getRandom(1, 9)
     if (id === 'shockedCat') {
-        const imgNum = getRandom(1, 4)
         $("#shockedCat").attr('src', `img/shocked_cat_${imgNum}.jpg`);
     }
-    $("#" + id).css('display', 'block');
+    if (id === 'happyCat') {
+        $("#happyCat").attr('src', `img/happy_cat_${imgNum}.jpg`);
+    }
+    $(`#${id}`).removeClass('hidden')
+    setTimeout(function () {
+        $(`#${id}`).addClass('shown')
+    }, 10)
 }
 
 function hide(id) {
-    $("#" + id).css('display', 'none');
+    $(`#${id}`).attr('src', '').removeClass('shown').addClass('hidden');
 }
 
 function recountStats(result) {
@@ -81,7 +87,6 @@ function displayNewTask() {
     $("#number1").text(number1);
     $("#number2").text(number2);
     $("#answer").val("");
-    show("task");
     thinkingStart = new Date();
     $("#answer").focus();
 }
@@ -95,19 +100,17 @@ function checkAnswer() {
 }
 
 function displayCat(result) {
+    hide("shockedCat");
+    hide("happyCat");
     if (result) {
-        hide("shockedCat");
         show("happyCat");
     } else {
-        hide("happyCat");
         show("shockedCat");
     }
-    setTimeout(function() {
-        hide("happyCat");
-        hide("shockedCat");
-    }, 1000);
 }
 
 $(document).ready(function() {
+    hide("happyCat")
+    hide("shockedCat")
     displayNewTask();
 });

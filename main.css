@@ -40,10 +40,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #task {
-    /*background: wheat;*/
     text-align: center;
     font-size: 4rem;
-    display: none;
 }
 
 #answer {
@@ -56,8 +54,34 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#happyCat, #shockedCat {
-    display: none;
-    width: 100%;
+#result {
+    display: block;
     text-align: center;
+    margin-top: 1em;
+}
+
+#happyCat, #shockedCat {
+    width: 300px;
+}
+
+@-webkit-keyframes fadeOut {
+    0% { opacity: 1; }
+    25% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    25% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: inline;
+    -webkit-animation: fadeOut 3s;
+    animation: fadeOut 3s;
+    animation-fill-mode: forwards;
 }
